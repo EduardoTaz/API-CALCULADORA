@@ -1,0 +1,6 @@
+npm init
+npm install express --save
+http://localhost:3000/calculadora?numero1=2&numero2=20&operacao=soma
+
+? = parametro
+& = mais parametro
