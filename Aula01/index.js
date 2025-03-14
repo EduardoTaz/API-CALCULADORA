@@ -3,7 +3,12 @@ const express = require('express');
 const app = express();
 
 app.use(express.json());  
+
 const port = 3000;
+
+app.get('/', (req, res) => {
+    res.send("Faltou algo na url")
+});
 
 app.get('/calculadora', (req, res) => {
     const { numero1, numero2, operacao } = req.query;
@@ -28,7 +33,7 @@ app.get('/calculadora', (req, res) => {
             result = n1 * n2;
             break;
         case 'divisao':
-            if(numero2 === 0) {
+            if(n2 === 0) {
                 return res.status(400).json({erro: 'Divisão por zero não é permitido'});
             }
             result = n1 / n2;
@@ -38,12 +43,8 @@ app.get('/calculadora', (req, res) => {
     }
 
     res.json({result});
-})
+});
 
-
-
-
-// Maurício passou para ver primos
 function isPrime(num) {
     if (num < 2) return false;
     if (num === 2) return true;
@@ -56,9 +57,7 @@ function isPrime(num) {
     return true;
 }
 
-
-
-app.get('/prime', (req, res) => {
+app.get('/primo', (req, res) => {
     const { numero } = req.query;
 
     const n1 = parseInt(numero);  
@@ -69,20 +68,7 @@ app.get('/prime', (req, res) => {
 
     const resultado = isPrime(n1) ? "É primo" : "Não é primo";
 
-    res.json({ numero: n1, primo: resultado }); // Preciso retornar em json
-
+    res.json({ numero: n1, resultado: resultado });
 });
 
-
-
-app.listen(port, () => {
-    console.log(`Servidor rodando na porta ${port}`);
-})
-
-process.on('uncaughtException', (err) => {
-    console.error('Erro não tratado:', err);
-});
- 
-process.on('unhandledRejection', (err) => {
-    console.error(('Rejeição não tratada:', err));
-});
+module.exports = app; 
