@@ -7,7 +7,7 @@ app.use(express.json());
 const port = 3000;
 
 app.get('/', (req, res) => {
-    res.send("Faltou algo na url")
+    res.send("Faltou algo na url");
 });
 
 app.get('/calculadora', (req, res) => {
@@ -17,7 +17,7 @@ app.get('/calculadora', (req, res) => {
     const n2 = parseFloat(numero2);
 
     if(isNaN(n1) || isNaN(n2)) {
-        return res.status(400).json({erro: 'Número 1 e número 2 devem ser números'});
+        return res.status(400).json({ error: 'Os parâmetros numero1 e numero2 devem ser números' });
     }
 
     let result;
@@ -34,15 +34,15 @@ app.get('/calculadora', (req, res) => {
             break;
         case 'divisao':
             if(n2 === 0) {
-                return res.status(400).json({erro: 'Divisão por zero não é permitido'});
+                return res.status(400).json({ error: 'Divisão por zero não permitida' });
             }
             result = n1 / n2;
             break;
         default:
-            return res.status(400).json({erro: 'Operação inválida'});
+            return res.status(400).json({ error: 'Operação inválida' });
     }
 
-    res.json({result});
+    res.json({ result });
 });
 
 function isPrime(num) {
@@ -63,12 +63,12 @@ app.get('/primo', (req, res) => {
     const n1 = parseInt(numero);  
 
     if (isNaN(n1)) {
-        return res.status(400).json({ erro: 'Verifique os dados e tente novamente' });
+        return res.status(400).json({ error: 'O parâmetro numero deve ser um número' });
     }
 
     const resultado = isPrime(n1) ? "É primo" : "Não é primo";
 
-    res.json({ numero: n1, resultado: resultado });
+    res.json({ numero: n1, resultado });
 });
 
-module.exports = app; 
+module.exports = app;
